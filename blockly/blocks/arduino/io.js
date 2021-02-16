@@ -260,3 +260,26 @@ Blockly.Blocks['io_pulsetimeout'] = {
     return Blockly.Types.NUMBER;
   }
 };
+
+Blockly.Blocks['limit_switch'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("touch sensor activated");
+    this.setOutput(true, "Boolean");
+    this.setColour(230);
+ this.setTooltip("check to see if robot has hit something");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['read_color_sensor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("is seeing")
+        .appendField(new Blockly.FieldDropdown([["red","red"], ["green","green"], ["blue","blue"]]), "color");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};

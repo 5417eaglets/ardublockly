@@ -35,6 +35,17 @@ goog.require('Blockly.Types');
  */
 Blockly.Blocks.logic.HUE = 210;
 
+/*Blockly.Blocks['pain'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("how do you feel")
+        .appendField(new Blockly.FieldDropdown([["i don't","i_dont"], ["if i could i would feel nothing","bear"], ["bad","bad"]]), "what");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};*/
+
 Blockly.Blocks['controls_if'] = {
   /**
    * Block for if/elseif/else condition.

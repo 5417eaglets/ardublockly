@@ -13,6 +13,7 @@ Ardublockly.TOOLBOX_XML =
 '<xml>' +
 '  <sep></sep>' +
 '  <category id="catLogic" name="Logic">' +
+/*'    <block type="pain"></block>' +*/
 '    <block type="controls_if"></block>' +
 '    <block type="logic_compare"></block>' +
 '    <block type="logic_operation"></block>' +
@@ -123,6 +124,8 @@ Ardublockly.TOOLBOX_XML =
 '  <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>' +
 '  <sep></sep>' +
 '  <category id="catInputOutput" name="Input/Output">' +
+'    <block type="limit_switch"></block>' +
+'    <block type="read_color_sensor"></block>' +
 '    <block type="io_digitalwrite">' +
 '      <value name="STATE">' +
 '        <block type="io_highlow"></block>' +
@@ -187,7 +190,39 @@ Ardublockly.TOOLBOX_XML =
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catMotors" name="Motors">' +
-'    <block type="servo_write">' +
+/*'    <block type="pain"></block>' +*/
+/*'    <block type="motor_but_only_pin">' +
+'       <field name="side">left</field>'+
+'    </block>' +*/
+/*'    <block type="motor_speed_percent">' +
+'      <field name="motorSide">OPTIONNAME</field>' +
+'      <field name="speed">0</field>' +
+'    </block>' +*/
+'    <block type="motor_speed_percent2">' +
+'     <field name="motorSide">left</field>' +
+'       <value name="speed">' +
+'        <block type="math_number">' +
+'          <field name="NUM" id="val23">0</field>' +
+'        </block>' +
+'       </value>' +
+'    </block>'+
+'    <block type="motor_speed_timed">' +
+'      <field name="motorSide">left</field>' +
+'       <value name="time">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'       </value>' +
+'       <value name="speed">' +
+'        <block type="math_number">' +
+'          <field name="NUM">0</field>' +
+'        </block>' +
+'       </value>' +
+'    </block>' +
+//'    <block type="limit_switch"></block>' +
+//'    <block type="set_color_sensor_color"></block>' +
+//'    <block type="read_color_sensor"></block>' +
+/*'    <block type="servo_write">' +
 '      <value name="SERVO_ANGLE">' +
 '        <block type="math_number">' +
 '          <field name="NUM">90</field>' +
@@ -216,7 +251,7 @@ Ardublockly.TOOLBOX_XML =
 '          <field name="NUM">10</field>' +
 '        </block>' +
 '      </value>' +
-'    </block>' +
+'    </block>' +*/
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catComms" name="Comms">' +

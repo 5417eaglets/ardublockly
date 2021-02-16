@@ -185,11 +185,49 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
 
+  var timedMotorDouble = "\n\nvoid timedMotorDouble(int time, int speed){\n\n  unsigned long old_time = millis();\n  unsigned long time_milisec = (unsigned long)(time*1000);\n\n  while(millis() - old_time < time_milisec){\n" +
+  "    if(speed < 0){\n" +
+    "        digitalWrite(Rhbridge_1,HIGH);\n        digitalWrite(Rhbridge_2,LOW);\n        analogWrite(Rpwm, -speed);\n" +
+    "        digitalWrite(Lhbridge_1,HIGH);\n        digitalWrite(Lhbridge_2,LOW);\n        analogWrite(Lpwm, -speed);\n    " +
+  "  } else if(speed > 0){\n" +
+    "        digitalWrite(Rhbridge_1,LOW);\n        digitalWrite(Rhbridge_2,HIGH);\n        analogWrite(Rpwm, speed);\n" +
+    "        digitalWrite(Lhbridge_1,LOW);\n        digitalWrite(Lhbridge_2,HIGH);\n        analogWrite(Lpwm, speed);\n"+
+  "      } else if(speed == 0){\n" +
+    "        digitalWrite(Rhbridge_1,LOW);\n        digitalWrite(Rhbridge_2,LOW);\n        analogWrite(Rpwm, speed);\n  "+
+    "      digitalWrite(Lhbridge_1,LOW);\n        digitalWrite(Lhbridge_2,LOW);\n        analogWrite(Lpwm, speed);\n      }  \n" +
+    "   }\n}";
+
+
+  var timedMotorMethodSingle = "\n\nvoid timedMotorSingle(int time, int speed, boolean isLeftMotor){\n\n  unsigned long old_time = millis();\n  unsigned long time_milisec = (unsigned long)(time*1000);\n\n  while(millis() - old_time < time_milisec){\n" +
+  "    if(speed < 0){\n" +
+    "      if(!isLeftMotor){\n" +
+    "        digitalWrite(Rhbridge_1,HIGH);\n        digitalWrite(Rhbridge_2,LOW);\n        analogWrite(Rpwm, -speed);\n" +
+    "      } else if(isLeftMotor){\n"+
+      "        digitalWrite(Lhbridge_1,HIGH);\n        digitalWrite(Lhbridge_2,LOW);\n        analogWrite(Lpwm, -speed);\n      }\n" +
+  "    } else if(speed > 0){\n" +
+    "      if(!isLeftMotor){\n" +
+      "        digitalWrite(Rhbridge_1,LOW);\n        digitalWrite(Rhbridge_2,HIGH);\n        analogWrite(Rpwm, speed);\n" +
+    "      } else if(isLeftMotor){\n" +
+      "        digitalWrite(Lhbridge_1,LOW);\n        digitalWrite(Lhbridge_2,HIGH);\n        analogWrite(Lpwm, speed);\n      }  \n"+
+  "    } else if(speed == 0){\n" +
+    "      if(!isLeftMotor){\n" +
+      "        digitalWrite(Rhbridge_1,LOW);\n        digitalWrite(Rhbridge_2,LOW);\n        analogWrite(Rpwm, speed);\n" +
+    "      } else if(isLeftMotor){\n" +
+      "        digitalWrite(Lhbridge_1,LOW);\n        digitalWrite(Lhbridge_2,LOW);\n        analogWrite(Lpwm, speed);\n      }  \n" +
+    "    }\n  }\n}";
+
+  var setupColorSensor = '  pinMode(S0, OUTPUT);\n  pinMode(S1, OUTPUT);\n  pinMode(S2, OUTPUT);\n  pinMode(S3, OUTPUT);\n  pinMode(sensorOut, INPUT);\n' +
+  '\n  digitalWrite(S0,HIGH);\n  digitalWrite(S1,LOW);'
+
+  var setupColorSensorInLoop = 'digitalWrite(S2, LOW);\n  digitalWrite(S3, LOW);\n  unsigned int redPulseWidth = pusleIn(sensorOUT, LOW);\n' + 
+  '  digitalWrite(S2, LOW);\n  digitalWrite(S3, HIGH);\n  unsigned int bluePulseWidth = pusleIn(sensorOUT, LOW);\n' +
+  '  digitalWrite(S2, HIGH);\n  digitalWrite(S3, HIGH);\n  unsigned int greenPulseWidth = pusleIn(sensorOUT, LOW);\n';
+
   var allDefs = includes.join('\n') + variables.join('\n') +
       definitions.join('\n') + functions.join('\n\n');
-  var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
-  return allDefs + setup + loop;
+  var setup = 'void setup() { \n  pinMode(Rpwm,OUTPUT); \n  pinMode(Rhbridge_1,OUTPUT); \n  pinMode(Rhbridge_2,OUTPUT); \n  pinMode(Lpwm,OUTPUT); \n  pinMode(Lhbridge_1,OUTPUT); \n  pinMode(Lhbridge_2,OUTPUT);\n  pinMode(limitSwitchPin, INPUT);\n' + setupColorSensor +  setups.join('\n  ') + '\n}\n\n';
+  var loop = 'void loop() {\n  ' + setupColorSensorInLoop + code.replace(/\n/g, '\n  ') + '\n}';
+  return allDefs + setup + loop + timedMotorMethodSingle + timedMotorDouble;
 };
 
 /**
