@@ -184,7 +184,7 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.setups_;
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
-// Push Test
+
   var setPinNums = "#define Rpwm 0\n#define Rhbridge_1 0\n#define Rhbridge_2 0\n#define Lpwm 0\n#define Lhbridge_1 0\n#define Lhbridge_2 0\n" +
   "#define limitSwitchPin 0\n#define S0 0\n#define S1 0\n#define S2 0\n#define S3 0\n#define sensorOut 0\n";
 
