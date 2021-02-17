@@ -185,6 +185,9 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
 
+  var setPinNums = "#define Rpwm 0\n#define Rhbridge_1 0\n#define Rhbridge_2 0\n#define Lpwm 0\n#define Lhbridge_1 0\n#define Lhbridge_2 0\n" +
+  "#define limitSwitchPin 0\n#define S0 0\n#define S1 0\n#define S2 0\n#define S3 0\n#define sensorOut 0\n";
+
   var timedMotorDouble = "\n\nvoid timedMotorDouble(int time, int speed){\n\n  unsigned long old_time = millis();\n  unsigned long time_milisec = (unsigned long)(time*1000);\n\n  while(millis() - old_time < time_milisec){\n" +
   "    if(speed < 0){\n" +
     "        digitalWrite(Rhbridge_1,HIGH);\n        digitalWrite(Rhbridge_2,LOW);\n        analogWrite(Rpwm, -speed);\n" +
@@ -227,7 +230,7 @@ Blockly.Arduino.finish = function(code) {
       definitions.join('\n') + functions.join('\n\n');
   var setup = 'void setup() { \n  pinMode(Rpwm,OUTPUT); \n  pinMode(Rhbridge_1,OUTPUT); \n  pinMode(Rhbridge_2,OUTPUT); \n  pinMode(Lpwm,OUTPUT); \n  pinMode(Lhbridge_1,OUTPUT); \n  pinMode(Lhbridge_2,OUTPUT);\n  pinMode(limitSwitchPin, INPUT);\n' + setupColorSensor +  setups.join('\n  ') + '\n}\n\n';
   var loop = 'void loop() {\n  ' + setupColorSensorInLoop + code.replace(/\n/g, '\n  ') + '\n}';
-  return allDefs + setup + loop + timedMotorMethodSingle + timedMotorDouble;
+  return allDefs + setPinNums + setup + loop + timedMotorMethodSingle + timedMotorDouble;
 };
 
 /**
