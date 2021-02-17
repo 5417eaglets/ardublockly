@@ -184,7 +184,7 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.setups_;
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
-
+// Push Test
   var setPinNums = "#define Rpwm 0\n#define Rhbridge_1 0\n#define Rhbridge_2 0\n#define Lpwm 0\n#define Lhbridge_1 0\n#define Lhbridge_2 0\n" +
   "#define limitSwitchPin 0\n#define S0 0\n#define S1 0\n#define S2 0\n#define S3 0\n#define sensorOut 0\n";
 
@@ -222,7 +222,7 @@ Blockly.Arduino.finish = function(code) {
   var setupColorSensor = '  pinMode(S0, OUTPUT);\n  pinMode(S1, OUTPUT);\n  pinMode(S2, OUTPUT);\n  pinMode(S3, OUTPUT);\n  pinMode(sensorOut, INPUT);\n' +
   '\n  digitalWrite(S0,HIGH);\n  digitalWrite(S1,LOW);'
 
-  var setupColorSensorInLoop = 'digitalWrite(S2, LOW);\n  digitalWrite(S3, LOW);\n  unsigned int redPulseWidth = pusleIn(sensorOUT, LOW);\n' + 
+  var setupColorSensorInLoop = 'digitalWrite(S2, LOW);\n  digitalWrite(S3, LOW);\n  unsigned int redPulseWidth = pusleIn(sensorOUT, LOW);\n' +
   '  digitalWrite(S2, LOW);\n  digitalWrite(S3, HIGH);\n  unsigned int bluePulseWidth = pusleIn(sensorOUT, LOW);\n' +
   '  digitalWrite(S2, HIGH);\n  digitalWrite(S3, HIGH);\n  unsigned int greenPulseWidth = pusleIn(sensorOUT, LOW);\n';
 
