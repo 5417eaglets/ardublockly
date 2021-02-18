@@ -185,8 +185,8 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
 
-  var setPinNums = "#define Rpwm 0\n#define Rhbridge_1 0\n#define Rhbridge_2 0\n#define Lpwm 0\n#define Lhbridge_1 0\n#define Lhbridge_2 0\n" +
-  "#define limitSwitchPin 0\n#define S0 0\n#define S1 0\n#define S2 0\n#define S3 0\n#define sensorOut 0\n";
+  var setPinNums = "#define Rpwm 5\n#define Rhbridge_1 2\n#define Rhbridge_2 4\n#define Lpwm 6\n#define Lhbridge_1 8\n#define Lhbridge_2 9\n" +
+  "#define limitSwitchPin 7\n#define S0 11\n#define S1 12\n#define S2 3\n#define S3 10\n#define sensorOut A1\n";
 
   var timedMotorDouble = "\n\nvoid timedMotorDouble(int time, int speed){\n\n  unsigned long old_time = millis();\n  unsigned long time_milisec = (unsigned long)(time*1000);\n\n  while(millis() - old_time < time_milisec){\n" +
   "    if(speed < 0){\n" +
